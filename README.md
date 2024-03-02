@@ -15,7 +15,7 @@ In `upload_model.ipynb` there's samplde code for downloading the "large" version
 
 2. Create ECR repo and build Docker Image
 
-Create a repository in AWS ECR to hold your custom Docker image. Follow the instructions in the AWS console (or documentation) on howw to build the container, tag it and push it to ECR. (Don't forget to use the correct `--platform` in the build command if you're on an ARM-based CPU)
+In `custom_image/` there's all the relevant pieces of code for a custom SageMaker endpoint container. Create a repository in AWS ECR to hold your custom Docker image. Follow the instructions in the AWS console (or documentation) on howw to build the container, tag it and push it to ECR. (Don't forget to use the correct `--platform` in the build command if you're on an ARM-based CPU)
 
 3. Identity execution role (needs S3, ECR and SageMaker permission)
 
