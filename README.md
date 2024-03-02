@@ -2,6 +2,8 @@
 
 Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 object detection model running in a custom Docker container.
 
+!['Sample output'](./assets/sample.png)
+
 ### Prerequisites
 
 - Valid AWS credentials in your environment
