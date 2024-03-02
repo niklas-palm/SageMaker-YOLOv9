@@ -1,0 +1,9 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "yolov8-sm-endpoint"
+resolve_s3 = true
+s3_prefix = "yolov8-sm-endpoint"
+region = "eu-west-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "MyCustomImage=\"934765130326.dkr.ecr.eu-west-1.amazonaws.com/yolov8:latest\" MyExecutionRole=\"arn:aws:iam::934765130326:role/service-role/AmazonSageMaker-ExecutionRole-20210826T115286\" ModelS3Uri=\"s3://mlbucket13/mastersagemaker/part2/yolov8/model/large/yolov8_model.tar.gz\" EndpointInstanceType=\"ml.g5.xlarge\""
