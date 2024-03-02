@@ -8,9 +8,6 @@ Parameters:
   MyCustomImage:
     Description: ARN of custom image to use
     Type: String
-  MyExecutionRole:
-    Description: ARN of execution role for the endpoint
-    Type: String
   ModelS3Uri:
     Description: S3 uri of Gzipped model archive.
     Type: String
@@ -19,7 +16,7 @@ Parameters:
     Type: String
     Default: ml.g5.xlarge # GPU instance
   # OutputBucket:
-  #   Description: S3 bucket to store async inference output
+  #   Description: S3 bucket and prefix to store async inference output
   #   Type: String
 
 Resources:
@@ -27,8 +24,7 @@ Resources:
   SageMakerModel:
     Type: AWS::SageMaker::Model
     Properties:
-      ModelName: !Sub YOLOv8-${AWS::StackName}
-      ExecutionRoleArn: !Ref MyExecutionRole
+      ExecutionRoleArn: !GetAtt SageMakerExecutionRole.Arn
       PrimaryContainer:
         Image: !Ref MyCustomImage
         ModelDataSource:
@@ -93,6 +89,31 @@ Resources:
   #     Tags:
   #       - Key: project
   #         Value: demo
+
+  # Role used by the endpoint to fetch Docker Image, read/write to S3 and Cloudwatch logs etc.
+  SageMakerExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sagemaker.amazonaws.com
+            Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: SageMakerExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sagemaker:*
+                  - s3:*
+                  - logs:*
+                  - ecr:*
+                Resource: "*"
 
 Outputs:
   EndpointName:
