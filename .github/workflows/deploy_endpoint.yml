@@ -1,0 +1,56 @@
+name: Build and push image
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - cloudformation/**
+      - .github/workflows/deploy_endpoint.yml
+
+env:
+  AWS_REGION: "eu-west-1" # Select this to suit where you'd like to deploy your workload
+  REPO: ${{github.event.repository.name}}
+  ECR_REPOSITORY: yolov8
+  OIDC_ROLE: arn:aws:iam::934765130326:role/github-actions-role
+  S3_MODEL_URI: s3://mlbucket13/mastersagemaker/part2/yolov8/model/large/yolov8_model.tar.gz
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+jobs:
+  BuildPipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{env.OIDC_ROLE}}
+          aws-region: ${{env.AWS_REGION}}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: "true"
+
+      - name: Build and deploy CFN
+        working-directory: ./cloudformation
+        env:
+          ENVIRONMENT: prod
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{env.ECR_REPOSITORY}}
+          S3_MODEL_URI: ${{env.S3_MODEL_URI}}
+        #   S3_ASYNC_OUTPUT: XYZ
+        run: |
+          sam build --use-container
+          sam deploy --stack-name ${{env.REPO}} \
+            --parameter-overrides \
+              MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest \
+              ModelS3Uri=${{env.S3_MODEL_URI}} \
+            --resolve-s3 \
+            --region ${{env.AWS_REGION}} \
+            --no-fail-on-empty-changeset \
+            --no-confirm-changeset \
+            --tags project=demo environment=${{env.ENVIRONMENT}}
