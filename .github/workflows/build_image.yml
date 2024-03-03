@@ -41,6 +41,7 @@ jobs:
           ECR_REPOSITORY: ${{env.ECR_REPOSITORY}}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          docker pull 763104351884.dkr.ecr.us-east-1.amazonaws.com/pytorch-inference:2.2.0-cpu-py310-ubuntu20.04-ec2
           docker build --platform linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest 
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
