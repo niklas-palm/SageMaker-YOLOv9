@@ -6,27 +6,23 @@ Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 obj
 
 ### Prerequisites
 
-- Valid AWS credentials in your environment
-- AWS SAM (I use it to deploy CloudFormation, but you can use whatever tool you prefer)
+- OIDC set up between Github and your AWS account.
+- An ECR repository to hold the custom image
 
 ### Usage
 
 1. Upload model weights to S3
 
-In `upload_model.ipynb` there's samplde code for downloading the "large" version of YOLOv8, zip it, and upload it to s3
+In `upload_model.ipynb` there's samplde code for downloading the "large" version of YOLOv8, zip it, and upload it to s3.
 
-2. Create ECR repo and build Docker Image
+2. Update placeholders
 
-In `custom_image/` there's all the relevant pieces of code for a custom SageMaker endpoint container. Create a repository in AWS ECR to hold your custom Docker image. Follow the instructions in the AWS console (or documentation) on howw to build the container, tag it and push it to ECR. (Don't forget to use the correct `--platform` in the build command if you're on an ARM-based CPU)
+Update placeholders with your own values in both Github Actions workflows (`OIDC_ROLE`, `ECR_REPOSITORY`, `AWS_REGION` and `S3_MODEL_URI`)
 
-3. Identity execution role (needs S3, ECR and SageMaker permission)
+4. Check in and commit the code to your repo
 
-Either create a new IAM role, or make note of the ARN of an existing one. This role will be used by the SageMaker endpoint and required permission to access S3, ECR and SageMaker.
-
-4. Deploy cloudformation stack
-
-Deploy the cloudformation template with the relevant parameters, to create a SageMaker endpoint
+Check in the code to your Github repository to trigger the Docker image build and SageMaker endpoint Cloudformation deployment. Note that the first Cloudformation deployment may fail, since the the image build may not have finished in time. If that happens, simply trigger the deployment again.
 
 5. Run test script with your endpoint
 
-In `test_endpoint.ipynb` there's sample code that invokes the endpoint and draws bounding boxes on the provided image
+In `test_endpoint.ipynb` there's sample code that invokes the endpoint and draws bounding boxes on the provided image. You can find the SageMaker endpoint name in the Cloudformation Stack outputs in the AWS console or using the AWS cli.
