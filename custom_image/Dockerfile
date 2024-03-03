@@ -1,8 +1,8 @@
-# FROM public.ecr.aws/763104351884.dkr.ecr.eu-west-1.amazonaws.com/pytorch-inference:2.2.0-cpu-py310-ubuntu20.04-ec2
+FROM 763104351884.dkr.ecr.eu-west-1.amazonaws.com/pytorch-inference:2.2.0-cpu-py310-ubuntu20.04-ec2
 # FROM python:3.10-slim
 # FROM pytorch/pytorch
 # FROM 934765130326.dkr.ecr.eu-west-1.amazonaws.com/sm-inference-base:latest
-FROM public.ecr.aws/sagemaker/sagemaker-distribution:latest-cpu
+#FROM public.ecr.aws/sagemaker/sagemaker-distribution:latest-cpu
 
 # Set the working directory in the container
 WORKDIR /app
