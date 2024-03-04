@@ -44,7 +44,7 @@ jobs:
         #   S3_ASYNC_OUTPUT: XYZ
         run: |
           sam build --use-container
-          sam deploy --stack-name ${{env.REPO}} \
+          sam deploy --stack-name ${{env.REPO}}- \
             --parameter-overrides MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest \
             --resolve-s3 \
             --region ${{env.AWS_REGION}} \
