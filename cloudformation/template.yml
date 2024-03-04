@@ -8,13 +8,13 @@ Parameters:
   MyCustomImage:
     Description: ARN of custom image to use
     Type: String
-  ModelS3Uri:
-    Description: S3 uri of Gzipped model archive.
-    Type: String
   EndpointInstanceType:
     Description: What instance type to use for the endpoint
     Type: String
     Default: ml.g5.xlarge # GPU instance
+  # ModelS3Uri:
+  #   Description: S3 uri of Gzipped model archive.
+  #   Type: String
   # OutputBucket:
   #   Description: S3 bucket and prefix to store async inference output
   #   Type: String
@@ -27,11 +27,11 @@ Resources:
       ExecutionRoleArn: !GetAtt SageMakerExecutionRole.Arn
       PrimaryContainer:
         Image: !Ref MyCustomImage
-        ModelDataSource:
-          S3DataSource:
-            S3Uri: !Ref ModelS3Uri
-            S3DataType: S3Prefix
-            CompressionType: Gzip
+        # ModelDataSource:
+        #   S3DataSource:
+        #     S3Uri: !Ref ModelS3Uri
+        #     S3DataType: S3Prefix
+        #     CompressionType: Gzip
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html
   RealtimeEndpointConfig:

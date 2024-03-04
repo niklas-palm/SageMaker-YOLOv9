@@ -12,7 +12,6 @@ env:
   REPO: ${{github.event.repository.name}}
   ECR_REPOSITORY: yolov8
   OIDC_ROLE: arn:aws:iam::934765130326:role/github-actions-role
-  S3_MODEL_URI: s3://mlbucket13/mastersagemaker/part2/yolov8/model/large/yolov8_model.tar.gz
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
@@ -47,8 +46,7 @@ jobs:
           sam build --use-container
           sam deploy --stack-name ${{env.REPO}} \
             --parameter-overrides \
-              MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest \
-              ModelS3Uri=${{env.S3_MODEL_URI}} \
+              MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
             --resolve-s3 \
             --region ${{env.AWS_REGION}} \
             --no-fail-on-empty-changeset \
