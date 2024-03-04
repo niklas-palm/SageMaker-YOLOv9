@@ -6,12 +6,12 @@ from ultralytics import YOLO
 from PIL import Image
 
 
-def load_model(model_path: str) -> YOLO:
+def load_model() -> YOLO:
     """
     Load the model from the specified directory.
     """
 
-    model = YOLO(model_path)
+    model = YOLO("model/yolov8l.pt")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)

@@ -1,4 +1,3 @@
-import os
 import logging
 
 from flask import Flask, request, jsonify
@@ -13,8 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Load model
-model_path = "model/yolov8l.pt"
-model = load_model(model_path)
+model = load_model()
 
 # Use ProxyFix middleware for running behind a proxy
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
