@@ -12,10 +12,8 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Load the model from the SM_MODEL_DIR environment variable
-model_path = os.environ.get("SM_MODEL_DIR")
-if not model_path:
-    raise ValueError("SM_MODEL_DIR environment variable is not set.")
+# Load model
+model_path = "model/yolov8l.pt"
 model = load_model(model_path)
 
 # Use ProxyFix middleware for running behind a proxy
