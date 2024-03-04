@@ -34,8 +34,7 @@ jobs:
         with:
           mask-password: "true"
 
-      - name: Login to Amazon ECR
-        # id: login-ecr
+      - name: Login to Amazon ECR # This is to be able to pull the SageMaker deep learning container, which sits in that account.
         uses: aws-actions/amazon-ecr-login@v1
         with:
           mask-password: "true"
