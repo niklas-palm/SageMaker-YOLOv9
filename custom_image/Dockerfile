@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the Flask application code into the container
-COPY . .x
+COPY . .
 
 # Expose port 8080 to allow external access to the Flask application
 EXPOSE 8080
