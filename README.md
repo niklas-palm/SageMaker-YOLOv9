@@ -2,6 +2,11 @@
 
 Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 object detection model running in a custom Docker container.
 
+Github Actions is used to build and push a custom Docker container to AWS ECR. A YOLOv8 model is baked into that image, which is used to deploy the YOLOv8 object detection SageMaker endpoints.
+
+> [!WARNING]  
+> Make sure to remove the SageMaker endpoint types from the cloudformation you don't want to use to avoid unnecessary cost.
+
 !['Sample output'](./assets/sample.png)
 
 ### Prerequisites
@@ -13,7 +18,7 @@ Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 obj
 
 1. Update placeholders
 
-Update placeholders with your own values in both Github Actions workflows (`OIDC_ROLE`, `ECR_REPOSITORY`, `AWS_REGION` and `S3_MODEL_URI`)
+Update placeholders with your own values in both Github Actions workflows (`OIDC_ROLE`, `ECR_REPOSITORY`, `AWS_REGION` and `S3_ASYNC_OUTPUT`)
 
 2. Check in and commit the code to your repo
 
