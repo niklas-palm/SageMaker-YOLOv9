@@ -45,11 +45,10 @@ jobs:
         run: |
           sam build --use-container
           sam deploy --stack-name ${{env.REPO}} \
-            --parameter-overrides \
-              MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
+            --parameter-overrides MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest \
             --resolve-s3 \
             --region ${{env.AWS_REGION}} \
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
-            --capabilities "CAPABILITY_IAM" \
+            --capabilities CAPABILITY_IAM \
             --tags project=demo environment=${{env.ENVIRONMENT}}
