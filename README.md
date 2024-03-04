@@ -11,18 +11,14 @@ Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 obj
 
 ### Usage
 
-1. Upload model weights to S3
-
-In `upload_model.ipynb` there's samplde code for downloading the "large" version of YOLOv8, zip it, and upload it to s3.
-
-2. Update placeholders
+1. Update placeholders
 
 Update placeholders with your own values in both Github Actions workflows (`OIDC_ROLE`, `ECR_REPOSITORY`, `AWS_REGION` and `S3_MODEL_URI`)
 
-4. Check in and commit the code to your repo
+2. Check in and commit the code to your repo
 
 Check in the code to your Github repository to trigger the Docker image build and SageMaker endpoint Cloudformation deployment. Note that the first Cloudformation deployment may fail, since the the image build may not have finished in time. If that happens, simply trigger the deployment again.
 
-5. Run test script with your endpoint
+3. Run test script with your endpoint
 
 In `test_endpoint.ipynb` there's sample code that invokes the endpoint and draws bounding boxes on the provided image. You can find the SageMaker endpoint name in the Cloudformation Stack outputs in the AWS console or using the AWS cli.
