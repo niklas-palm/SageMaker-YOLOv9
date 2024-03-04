@@ -51,4 +51,5 @@ jobs:
             --region ${{env.AWS_REGION}} \
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
+            --capabilities CAPABILITY_IAM \
             --tags project=demo environment=${{env.ENVIRONMENT}}
