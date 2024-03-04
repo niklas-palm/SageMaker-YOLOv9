@@ -4,14 +4,11 @@ Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 obj
 
 Github Actions is used to build and push a custom Docker container to AWS ECR. A YOLOv8 model is baked into that image, which is used to deploy the YOLOv8 object detection SageMaker endpoints.
 
-> [!WARNING]  
-> Make sure to remove the SageMaker endpoint types from the cloudformation you don't want to use to avoid unnecessary cost.
-
 !['Sample output'](./assets/sample.png)
 
 ### Prerequisites
 
-- OIDC set up between Github and your AWS account.
+- [OIDC](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services) set up between Github and your AWS account.
 - An ECR repository to hold the custom image
 
 ### Usage
@@ -27,3 +24,6 @@ Check in the code to your Github repository to trigger the Docker image build an
 3. Run test script with your endpoint
 
 In `test_endpoint.ipynb` there's sample code that invokes the endpoint and draws bounding boxes on the provided image. You can find the SageMaker endpoint name in the Cloudformation Stack outputs in the AWS console or using the AWS cli.
+
+> [!WARNING]  
+> Make sure to remove the SageMaker endpoint types from the cloudformation you don't want to use to avoid unnecessary cost.
