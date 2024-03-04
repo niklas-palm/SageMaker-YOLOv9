@@ -13,8 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the Flask application code into the container
 COPY . .
 
-# Set the environment variable for the SageMaker model directory
-ENV SM_MODEL_DIR /opt/ml/model
+# # Set the environment variable for the SageMaker model directory
+# ENV SM_MODEL_DIR /opt/ml/model
 
 # Expose port 8080 to allow external access to the Flask application
 EXPOSE 8080
