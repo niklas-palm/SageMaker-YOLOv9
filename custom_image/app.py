@@ -13,6 +13,11 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Get the current working directory
+current_directory = os.getcwd()
+
+print("Current Working Directory in APP:", current_directory)
+
 # Load model
 model = load_model()
 
