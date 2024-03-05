@@ -12,7 +12,8 @@ env:
   REPO: ${{github.event.repository.name}}
   ECR_REPOSITORY: yolov8 # Name of ECR repo to hold custom Docker image
   OIDC_ROLE: arn:aws:iam::934765130326:role/github-actions-role # What role to assume in AWS
-  S3_ASYNC_OUTPUT: s3://mlbucket13/yolov8/async/output/ # Where to store async inference results
+  S3_ASYNC_OUTPUT: s3://mlbucket13/yolov8/async/output/ # Where to store async inference result
+  S3_MODEL_URI: s3://mlbucket13/mastersagemaker/part2/yolov8/model/large/yolov8_model.tar.gz # Yolo model archive S3 uri
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
@@ -42,12 +43,14 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{env.ECR_REPOSITORY}}
           S3_ASYNC_OUTPUT: ${{env.S3_ASYNC_OUTPUT}}
+          S3_MODEL_URI: ${{env.S3_MODEL_URI}}
         run: |
           sam build --use-container
           sam deploy --stack-name ${{env.REPO}} \
             --parameter-overrides \
               MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest \
               AyncS3UriOutput=${{env.S3_ASYNC_OUTPUT}} \
+              ModelS3Uri=${{env.S3_MODEL_URI}} \
             --resolve-s3 \
             --region ${{env.AWS_REGION}} \
             --no-fail-on-empty-changeset \

@@ -15,6 +15,9 @@ Parameters:
   AyncS3UriOutput: # Only required for the async endpoints
     Description: S3 bucket and prefix to store async inference output
     Type: String
+  ModelS3Uri:
+    Description: S3 uri of Gzipped model archive.
+    Type: String
 
 Resources:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-model.html#aws-resource-sagemaker-model-syntax
@@ -24,6 +27,11 @@ Resources:
       ExecutionRoleArn: !GetAtt SageMakerExecutionRole.Arn
       PrimaryContainer:
         Image: !Ref MyCustomImage
+        ModelDataSource:
+          S3DataSource:
+            S3Uri: !Ref ModelS3Uri
+            S3DataType: S3Prefix
+            CompressionType: Gzip
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html
   RealtimeEndpointConfig:
@@ -80,13 +88,13 @@ Resources:
             MaxConcurrency: 4
             MemorySizeInMB: 5120
 
-  # MyServerlessYoloV8Endpoint:
-  #   Type: AWS::SageMaker::Endpoint
-  #   Properties:
-  #     EndpointConfigName: !GetAtt ServerlessEndpointConfig.EndpointConfigName
-  #     Tags:
-  #       - Key: project
-  #         Value: demo
+  MyServerlessYoloV8Endpoint:
+    Type: AWS::SageMaker::Endpoint
+    Properties:
+      EndpointConfigName: !GetAtt ServerlessEndpointConfig.EndpointConfigName
+      Tags:
+        - Key: project
+          Value: demo
 
   # Role used by the endpoint to fetch Docker Image, read/write to S3 and Cloudwatch logs etc.
   SageMakerExecutionRole:
@@ -119,5 +127,5 @@ Outputs:
     Value: !GetAtt MyYoloV8Endpoint.EndpointName
   AsyncEndpointName:
     Value: !GetAtt MyAsyncYoloV8Endpoint.EndpointName
-  # ServerlessEndpointName:
-  #   Value: !GetAtt MyServerlessYoloV8Endpoint.EndpointName
+  ServerlessEndpointName:
+    Value: !GetAtt MyServerlessYoloV8Endpoint.EndpointName
