@@ -1,4 +1,6 @@
 import logging
+import os
+import sys
 
 from flask import Flask, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -11,8 +13,14 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+model_path = os.getenv("SM_MODEL_DIR")
+
+if model_path is None:
+    logger.exception("Error: SM_MODEL_DIR environment variable is not set.")
+    sys.exit(1)
+
 # Load model
-model = load_model()
+model = load_model(model_path)
 
 # Use ProxyFix middleware for running behind a proxy
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)

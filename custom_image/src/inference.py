@@ -6,12 +6,12 @@ from ultralytics import YOLO
 from PIL import Image
 
 
-def load_model() -> YOLO:
+def load_model(model_dir: str) -> YOLO:
     """
     Load the model from the specified directory.
     """
 
-    model = YOLO("./model/yolov8l.pt")
+    model = YOLO(os.path.join(model_dir, "yolov8l.pt"))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -45,9 +45,5 @@ def get_bounding_boxes(inference_result: list) -> dict:
     for result in inference_result:
         if result.boxes:
             infer["bounding_boxes"] = result.boxes.numpy().data.tolist()
-        # if result.masks:
-        #     infer["masks"] = result.masks.numpy().data.tolist()
-        # if result.probs:
-        #     infer["probs"] = result.probs.numpy().data.tolist()
 
     return infer
