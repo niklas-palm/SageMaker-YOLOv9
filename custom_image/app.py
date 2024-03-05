@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 # Load model
 model = load_model()
 
+
 # Use ProxyFix middleware for running behind a proxy
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
