@@ -15,7 +15,7 @@ COPY . .
 # For serverless endpoint, extra permission the container may be required.
 RUN chmod o+rwX src/model
 RUN chmod o+rwX src/model/
-# RUN chmod o+rwX src/model/yolov8l.pt
+RUN chmod o+rwX src/model/yolov8l.pt
 
 # Expose port 8080 to allow external access to the Flask application
 EXPOSE 8080
