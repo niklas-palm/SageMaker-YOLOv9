@@ -119,5 +119,5 @@ Outputs:
     Value: !GetAtt MyYoloV8Endpoint.EndpointName
   AsyncEndpointName:
     Value: !GetAtt MyAsyncYoloV8Endpoint.EndpointName
-  ServerlessEndpointName:
-    Value: !GetAtt MyServerlessYoloV8Endpoint.EndpointName
+  # ServerlessEndpointName:
+  #   Value: !GetAtt MyServerlessYoloV8Endpoint.EndpointName
