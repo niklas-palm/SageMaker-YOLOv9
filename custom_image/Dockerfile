@@ -12,6 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the Flask application code into the container
 COPY . .
 
+# Serverless endpoints require explicit permissions
+RUN chmod o+rwX /app/src/model
+
 # Expose port 8080 to allow external access to the Flask application
 EXPOSE 8080
 

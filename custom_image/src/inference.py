@@ -11,12 +11,7 @@ def load_model() -> YOLO:
     Load the model from the specified directory.
     """
 
-    # Get the current working directory
-    current_directory = os.getcwd()
-
-    print("Current Working Directory in load_model:", current_directory)
-
-    model = YOLO("yolov8large.pt")
+    model = YOLO("/app/src/model/yolov8large.pt")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
