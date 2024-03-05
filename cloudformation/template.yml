@@ -15,9 +15,6 @@ Parameters:
   AyncS3UriOutput: # Only required for the async endpoints
     Description: S3 bucket and prefix to store async inference output
     Type: String
-  ModelS3Uri:
-    Description: S3 uri of Gzipped model archive.
-    Type: String
 
 Resources:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-model.html#aws-resource-sagemaker-model-syntax
@@ -27,11 +24,6 @@ Resources:
       ExecutionRoleArn: !GetAtt SageMakerExecutionRole.Arn
       PrimaryContainer:
         Image: !Ref MyCustomImage
-        ModelDataSource:
-          S3DataSource:
-            S3Uri: !Ref ModelS3Uri
-            S3DataType: S3Prefix
-            CompressionType: Gzip
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html
   RealtimeEndpointConfig:
