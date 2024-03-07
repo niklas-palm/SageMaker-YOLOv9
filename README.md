@@ -1,8 +1,8 @@
-## YOLOv8 on a SageMaker endpoint
+## YOLOv9 on a SageMaker endpoint
 
-Sample for setting up different kinds of SageMaker endpoints with the YOLOv8 object detection model running in a custom Docker container.
+Sample for setting up different kinds of SageMaker endpoints with the YOLOv9 object detection model running in a custom Docker container.
 
-Github Actions is used to build and push a custom Docker container to AWS ECR. A YOLOv8 model is baked into that image, which is used to deploy the YOLOv8 object detection SageMaker endpoints.
+Github Actions is used to build and push a custom Docker container to AWS ECR. A YOLOv9 model is baked into that image, which is used to deploy the YOLOv9 object detection SageMaker endpoints.
 
 !['Sample output'](./assets/sample.png)
 

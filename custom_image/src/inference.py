@@ -11,7 +11,7 @@ def load_model() -> YOLO:
     Load the model from the specified directory.
     """
 
-    model = YOLO("/app/src/model/yolov8large.pt")
+    model = YOLO("/app/src/model/yolov9c.pt")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)

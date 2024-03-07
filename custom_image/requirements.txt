@@ -1,3 +1,3 @@
 Flask
 gunicorn
-ultralytics
+ultralytics==8.1.24

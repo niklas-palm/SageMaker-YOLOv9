@@ -9,8 +9,7 @@ on:
 
 env:
   AWS_REGION: "eu-west-1" # Select this to suit where you'd like to deploy your workload
-  REPO: ${{github.event.repository.name}}
-  ECR_REPOSITORY: yolov8 # Name of ECR repo to hold custom Docker image
+  ECR_REPOSITORY: yolov9 # Name of ECR repo to hold custom Docker image
   OIDC_ROLE: arn:aws:iam::934765130326:role/github-actions-role # What role to assume in AWS
 permissions:
   id-token: write # This is required for requesting the JWT
