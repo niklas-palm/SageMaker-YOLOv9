@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 
 Description: |
-  Three different SageMaker endpoints running the YOLOv8 object detection model.
+  Three different SageMaker endpoints running the YOLOv9 object detection model.
 
 Parameters:
   MyCustomImage:
@@ -29,7 +29,7 @@ Resources:
   RealtimeEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
-      EndpointConfigName: !Sub YOLOv8-${AWS::StackName}
+      EndpointConfigName: !Sub endpointconfig-${AWS::StackName}
       ProductionVariants:
         - InitialInstanceCount: 1
           InitialVariantWeight: 1.0
@@ -38,7 +38,7 @@ Resources:
           VariantName: AllTrafficVariant
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpoint.html
-  MyYoloV8Endpoint:
+  MyYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
       EndpointConfigName: !GetAtt RealtimeEndpointConfig.EndpointConfigName
@@ -49,7 +49,7 @@ Resources:
   AsyncEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
-      EndpointConfigName: !Sub YOLOv8-${AWS::StackName}-async
+      EndpointConfigName: !Sub endpointconfig-${AWS::StackName}-async
       ProductionVariants:
         - InitialInstanceCount: 1
           InitialVariantWeight: 1.0
@@ -60,7 +60,7 @@ Resources:
         OutputConfig:
           S3OutputPath: !Ref AyncS3UriOutput
 
-  MyAsyncYoloV8Endpoint:
+  MyAsyncYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
       EndpointConfigName: !GetAtt AsyncEndpointConfig.EndpointConfigName
@@ -71,7 +71,7 @@ Resources:
   ServerlessEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
-      EndpointConfigName: !Sub YOLOv8-${AWS::StackName}-serverless
+      EndpointConfigName: !Sub endpointconfig-${AWS::StackName}-serverless
       ProductionVariants:
         - InitialVariantWeight: 1.0
           ModelName: !GetAtt SageMakerModel.ModelName
@@ -80,7 +80,7 @@ Resources:
             MaxConcurrency: 4
             MemorySizeInMB: 5120
 
-  MyServerlessYoloV8Endpoint:
+  MyServerlessYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
       EndpointConfigName: !GetAtt ServerlessEndpointConfig.EndpointConfigName
@@ -116,8 +116,8 @@ Resources:
 
 Outputs:
   EndpointName:
-    Value: !GetAtt MyYoloV8Endpoint.EndpointName
+    Value: !GetAtt MyYoloV9Endpoint.EndpointName
   AsyncEndpointName:
-    Value: !GetAtt MyAsyncYoloV8Endpoint.EndpointName
+    Value: !GetAtt MyAsyncYoloV9Endpoint.EndpointName
   ServerlessEndpointName:
-    Value: !GetAtt MyServerlessYoloV8Endpoint.EndpointName
+    Value: !GetAtt MyServerlessYoloV9Endpoint.EndpointName
