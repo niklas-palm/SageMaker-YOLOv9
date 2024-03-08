@@ -29,7 +29,6 @@ Resources:
   RealtimeEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
-      EndpointConfigName: !Sub endpointconfig-${AWS::StackName}
       ProductionVariants:
         - InitialInstanceCount: 1
           InitialVariantWeight: 1.0
@@ -49,7 +48,6 @@ Resources:
   AsyncEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
-      EndpointConfigName: !Sub endpointconfig-${AWS::StackName}-async
       ProductionVariants:
         - InitialInstanceCount: 1
           InitialVariantWeight: 1.0
@@ -71,7 +69,6 @@ Resources:
   ServerlessEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
-      EndpointConfigName: !Sub endpointconfig-${AWS::StackName}-serverless
       ProductionVariants:
         - InitialVariantWeight: 1.0
           ModelName: !GetAtt YoloV9Model.ModelName
