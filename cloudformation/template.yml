@@ -18,7 +18,7 @@ Parameters:
 
 Resources:
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-model.html#aws-resource-sagemaker-model-syntax
-  SageMakerModel:
+  YoloV9Model:
     Type: AWS::SageMaker::Model
     Properties:
       ExecutionRoleArn: !GetAtt SageMakerExecutionRole.Arn
@@ -34,7 +34,7 @@ Resources:
         - InitialInstanceCount: 1
           InitialVariantWeight: 1.0
           InstanceType: !Ref EndpointInstanceType
-          ModelName: !GetAtt SageMakerModel.ModelName
+          ModelName: !GetAtt YoloV9Model.ModelName
           VariantName: AllTrafficVariant
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpoint.html
@@ -54,7 +54,7 @@ Resources:
         - InitialInstanceCount: 1
           InitialVariantWeight: 1.0
           InstanceType: !Ref EndpointInstanceType
-          ModelName: !GetAtt SageMakerModel.ModelName
+          ModelName: !GetAtt YoloV9Model.ModelName
           VariantName: AllTrafficVariant
       AsyncInferenceConfig:
         OutputConfig:
@@ -74,7 +74,7 @@ Resources:
       EndpointConfigName: !Sub endpointconfig-${AWS::StackName}-serverless
       ProductionVariants:
         - InitialVariantWeight: 1.0
-          ModelName: !GetAtt SageMakerModel.ModelName
+          ModelName: !GetAtt YoloV9Model.ModelName
           VariantName: AllTrafficVariant
           ServerlessConfig:
             MaxConcurrency: 4
