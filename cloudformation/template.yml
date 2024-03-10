@@ -26,7 +26,7 @@ Resources:
         Image: !Ref MyCustomImage
 
   # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-endpointconfig.html
-  RealtimeEndpointConfig:
+  Yolov9RealtimeEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
       ProductionVariants:
@@ -40,12 +40,12 @@ Resources:
   MyYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
-      EndpointConfigName: !GetAtt RealtimeEndpointConfig.EndpointConfigName
+      EndpointConfigName: !GetAtt Yolov9RealtimeEndpointConfig.EndpointConfigName
       Tags:
         - Key: project
           Value: demo
 
-  AsyncEndpointConfig:
+  Yolov9AsyncEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
       ProductionVariants:
@@ -61,12 +61,12 @@ Resources:
   MyAsyncYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
-      EndpointConfigName: !GetAtt AsyncEndpointConfig.EndpointConfigName
+      EndpointConfigName: !GetAtt Yolov9AsyncEndpointConfig.EndpointConfigName
       Tags:
         - Key: project
           Value: demo
 
-  ServerlessEndpointConfig:
+  Yolov9ServerlessEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
       ProductionVariants:
@@ -80,7 +80,7 @@ Resources:
   MyServerlessYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
-      EndpointConfigName: !GetAtt ServerlessEndpointConfig.EndpointConfigName
+      EndpointConfigName: !GetAtt Yolov9ServerlessEndpointConfig.EndpointConfigName
       Tags:
         - Key: project
           Value: demo
