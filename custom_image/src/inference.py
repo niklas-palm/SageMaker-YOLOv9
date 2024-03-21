@@ -44,6 +44,6 @@ def get_bounding_boxes(inference_result: list) -> dict:
 
     for result in inference_result:
         if result.boxes:
-            infer["bounding_boxes"] = result.boxes.numpy().data.tolist()
+            infer["bounding_boxes"] = result.boxes.cpu().numpy().data.tolist()
 
     return infer
