@@ -44,7 +44,7 @@ jobs:
           sam build --use-container
           sam deploy --stack-name ${{env.REPO}} \
             --parameter-overrides \
-              MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:06c3a97e221e68a70bbe7727b9df4ab93f8a32c3 \
+              MyCustomImage=${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:c5a762782a1ffc8fc96e99b07a95b53e3363623a \
               AyncS3UriOutput=${{env.S3_ASYNC_OUTPUT}} \
             --resolve-s3 \
             --region ${{env.AWS_REGION}} \
