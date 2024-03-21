@@ -51,4 +51,4 @@ jobs:
             --no-fail-on-empty-changeset \
             --no-confirm-changeset \
             --capabilities CAPABILITY_IAM \
-            --tags project=demo environment=${{env.ENVIRONMENT}}
+            --tags project=yolov9 environment=${{env.ENVIRONMENT}}
