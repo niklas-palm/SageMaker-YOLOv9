@@ -77,13 +77,13 @@ Resources:
             MaxConcurrency: 4
             MemorySizeInMB: 5120
 
-  MyServerlessYoloV9Endpoint:
-    Type: AWS::SageMaker::Endpoint
-    Properties:
-      EndpointConfigName: !GetAtt Yolov9ServerlessEndpointConfig.EndpointConfigName
-      Tags:
-        - Key: project
-          Value: demo
+  # MyServerlessYoloV9Endpoint:
+  #   Type: AWS::SageMaker::Endpoint
+  #   Properties:
+  #     EndpointConfigName: !GetAtt Yolov9ServerlessEndpointConfig.EndpointConfigName
+  #     Tags:
+  #       - Key: project
+  #         Value: demo
 
   # Role used by the endpoint to fetch Docker Image, read/write to S3 and Cloudwatch logs etc.
   SageMakerExecutionRole:
@@ -116,5 +116,5 @@ Outputs:
     Value: !GetAtt MyYoloV9Endpoint.EndpointName
   AsyncEndpointName:
     Value: !GetAtt MyAsyncYoloV9Endpoint.EndpointName
-  ServerlessEndpointName:
-    Value: !GetAtt MyServerlessYoloV9Endpoint.EndpointName
+  # ServerlessEndpointName:
+  #   Value: !GetAtt MyServerlessYoloV9Endpoint.EndpointName
