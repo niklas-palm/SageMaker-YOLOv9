@@ -1,4 +1,5 @@
-FROM 763104351884.dkr.ecr.eu-west-1.amazonaws.com/pytorch-inference:2.2.0-cpu-py310-ubuntu20.04-ec2
+# FROM 763104351884.dkr.ecr.eu-west-1.amazonaws.com/pytorch-inference:2.2.0-cpu-py310-ubuntu20.04-ec2
+FROM 763104351884.dkr.ecr.eu-west-1.amazonaws.com/pytorch-inference:2.2.0-gpu-py310-cu118-ubuntu20.04-sagemaker
 
 # Set the working directory in the container
 WORKDIR /app
