@@ -54,7 +54,7 @@ Resources:
       MetricName: InvocationModelErrors
       Dimensions:
         - Name: EndpointName
-          Value: !Ref MyYoloV9Endpoint
+          Value: !GetAtt MyYoloV9Endpoint.EndpointName
         - Name: VariantName
           Value: AllTrafficVariant
       Statistic: Sum
