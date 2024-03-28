@@ -54,9 +54,9 @@ Resources:
       MetricName: InvocationModelErrors
       Dimensions:
         - Name: EndpointName
-          Value: !Ref MyAsyncYoloV9Endpoint
+          Value: !Ref MyYoloV9Endpoint
         - Name: VariantName
-          Value: AllTraffic
+          Value: AllTrafficVariant
       Statistic: Sum
       Period: 30
       EvaluationPeriods: 1
