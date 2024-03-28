@@ -25,5 +25,8 @@ Check in the code to your Github repository to trigger the Docker image build an
 
 In `test_endpoint.ipynb` there's sample code that invokes the endpoint and draws bounding boxes on the provided image. You can find the SageMaker endpoint name in the Cloudformation Stack outputs in the AWS console or using the AWS cli.
 
+> [!NOTE]  
+> There are 2 base images in the Dockerfile (one is for GPU and one is for CPU). You can use whichever you want, but serverless endpoints do not support GPU, and the GPU image is too large for even using on a serverless endpoint.
+
 > [!WARNING]  
 > Make sure to remove the SageMaker endpoint types from the cloudformation you don't want to use to avoid unnecessary cost.
