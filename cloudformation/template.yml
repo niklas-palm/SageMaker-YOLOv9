@@ -45,6 +45,25 @@ Resources:
         - Key: project
           Value: demo
 
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html
+  SagemakerEndpointAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: Monitor errors from a SageMaker endpoint
+      Namespace: AWS/SageMaker
+      MetricName: InvocationModelErrors
+      Dimensions:
+        - Name: EndpointName
+          Value: !Ref MyAsyncYoloV9Endpoint
+        - Name: VariantName
+          Value: AllTraffic
+      Statistic: Sum
+      Period: 30
+      EvaluationPeriods: 1
+      Threshold: 0
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+
   Yolov9AsyncEndpointConfig:
     Type: AWS::SageMaker::EndpointConfig
     Properties:
@@ -86,6 +105,7 @@ Resources:
   #         Value: demo
 
   # Role used by the endpoint to fetch Docker Image, read/write to S3 and Cloudwatch logs etc.
+  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
   SageMakerExecutionRole:
     Type: AWS::IAM::Role
     Properties:
