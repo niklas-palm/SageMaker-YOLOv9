@@ -41,6 +41,18 @@ Resources:
     Type: AWS::SageMaker::Endpoint
     Properties:
       EndpointConfigName: !GetAtt Yolov9RealtimeEndpointConfig.EndpointConfigName
+      DeploymentConfig:
+        AutoRollbackConfiguration:
+          Alarms:
+            - AlarmName: SageMakerEndpointAlarm.AlarmName # If this goes into alarm during deployment, roll back the deployment
+        BlueGreenUpdatePolicy:
+          TerminationWaitInSeconds: 300 # How long should we keep the old endpoint live "just in case" after a successfull deployment
+          TrafficRoutingConfiguration:
+            CanarySize: # Shift 25% of traffic initially
+              Type: CAPACITY_PERCENT
+              Value: 25
+            Type: CANARY
+            WaitIntervalInSeconds: 60 # After this many seconds, start sending all traffic (with canary).
       Tags:
         - Key: project
           Value: demo
