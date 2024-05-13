@@ -40,11 +40,12 @@ Resources:
   MyYoloV9Endpoint:
     Type: AWS::SageMaker::Endpoint
     Properties:
+      EndpointName: !Sub "MyYoloV9Endpoint-${AWS::StackName}"
       EndpointConfigName: !GetAtt Yolov9RealtimeEndpointConfig.EndpointConfigName
       DeploymentConfig:
         AutoRollbackConfiguration:
           Alarms:
-            - AlarmName: !Sub "SageMakerEndpointAlarm-${AWS::StackName}" # If this goes into alarm during deployment, roll back the deployment
+            - AlarmName: !Sub "SageMakerEndpointAlarm-${AWS::StackId}" # If this goes into alarm during deployment, roll back the deployment
         BlueGreenUpdatePolicy:
           TerminationWaitInSeconds: 300 # How long should we keep the old endpoint live "just in case" after a successfull deployment
           TrafficRoutingConfiguration:
@@ -58,12 +59,12 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmDescription: Monitor errors from a SageMaker endpoint
-      AlarmName: !Sub "SageMakerEndpointAlarm-${AWS::StackName}"
+      AlarmName: !Sub "SageMakerEndpointAlarm-${AWS::StackId}"
       Namespace: AWS/SageMaker
       MetricName: InvocationModelErrors
       Dimensions:
         - Name: EndpointName
-          Value: !GetAtt MyYoloV9Endpoint.EndpointName
+          Value: !Sub "MyYoloV9Endpoint-${AWS::StackName}"
         - Name: VariantName
           Value: AllTrafficVariant
       Statistic: Sum
