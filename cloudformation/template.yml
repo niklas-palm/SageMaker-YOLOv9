@@ -48,11 +48,7 @@ Resources:
         BlueGreenUpdatePolicy:
           TerminationWaitInSeconds: 300 # How long should we keep the old endpoint live "just in case" after a successfull deployment
           TrafficRoutingConfiguration:
-            CanarySize: # Shift 25% of traffic initially
-              Type: CAPACITY_PERCENT
-              Value: 25
-            Type: CANARY
-            WaitIntervalInSeconds: 60 # After this many seconds, start sending all traffic (with canary).
+            Type: ALL_AT_ONCE
       Tags:
         - Key: project
           Value: demo
