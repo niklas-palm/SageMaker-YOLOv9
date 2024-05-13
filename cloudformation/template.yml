@@ -44,7 +44,7 @@ Resources:
       DeploymentConfig:
         AutoRollbackConfiguration:
           Alarms:
-            - AlarmName: !Ref SageMakerEndpointAlarm # If this goes into alarm during deployment, roll back the deployment
+            - AlarmName: !Sub "SageMakerEndpointAlarm-${AWS::StackName}" # If this goes into alarm during deployment, roll back the deployment
         BlueGreenUpdatePolicy:
           TerminationWaitInSeconds: 300 # How long should we keep the old endpoint live "just in case" after a successfull deployment
           TrafficRoutingConfiguration:
