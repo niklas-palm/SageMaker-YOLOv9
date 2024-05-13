@@ -58,6 +58,7 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmDescription: Monitor errors from a SageMaker endpoint
+      AlarmName: !Sub "SageMakerEndpointAlarm-${AWS::StackName}"
       Namespace: AWS/SageMaker
       MetricName: InvocationModelErrors
       Dimensions:
